@@ -25,6 +25,7 @@ public function  test_example()
 
     //creates 3 fake users
     //$user = User::factory()->make();
+    //$user->save();
 
     $user->save();
     $this->assertEquals(3, 3);

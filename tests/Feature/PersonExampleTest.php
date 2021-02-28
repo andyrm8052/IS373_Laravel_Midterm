@@ -25,6 +25,6 @@ class PersonExampleTest extends TestCase
         $user->name = "Andy Marmolejos"; //finds user at id = 1 and change name
         $user->save(); //saves any changes made before this line of code
         $this->assertEquals("Andy Marmolejos", $user->name); //Make sure if name was change
-        $persons = $user->$person; //joins the user to task table and retrieves data from $user
+        $persons = $user->$person; //joins the user to task table and retrieves data from $use
     }
 }
