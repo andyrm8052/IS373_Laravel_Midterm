@@ -9,9 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Task;
 use App\Models\Post;
-use App\Models\Person;
 
 class User extends Authenticatable
 {
@@ -61,18 +59,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-    public function tasks(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Task::class);
-    }
-
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
-    }
-
-    public function person(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Person::class);
     }
 }

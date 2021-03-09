@@ -31,7 +31,7 @@ class TaskExampleTest extends TestCase
          foreach(Task::all() as $task){
              echo $task->description;
          }
-         
+
         $user -> save();
         $tasks = $user->task; //joins the user to task table and retrieves data from $user
         dd($task);
