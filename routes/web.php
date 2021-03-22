@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Posts;
+use App\Http\Livewire\ContactForm;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +26,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('post', Posts::class)->name('post');
+
+Route::get('contact', ContactForm::class)->name('contact');
+//Route::get('/', function () {
+//    return view('contact');
+//});
