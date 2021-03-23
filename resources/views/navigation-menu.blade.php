@@ -21,6 +21,10 @@
                     <x-jet-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-jet-nav-link>
+                    <!-- opens the post link in the Page link -->
+                    <x-jet-nav-link href="{{ route('post') }}" :active="request()->routeIs('post')">
+                        {{ __('Pages') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 

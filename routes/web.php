@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Posts;
 use App\Http\Livewire\ContactForm;
+use App\Http\Livewire\Page;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +32,4 @@ Route::get('contact', ContactForm::class)->name('contact');
 //Route::get('/', function () {
 //    return view('contact');
 //});
+Route::get('page', Page::class)->name('page');

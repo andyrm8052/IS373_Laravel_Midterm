@@ -8,7 +8,7 @@ use App\Models\User;
 
 class Posts extends Component
 {
-    public $posts, $title, $body, $post_id;
+    public $posts, $title, $body, $publish, $post_id;
     public $isOpen = 0;
 
     /**
@@ -75,11 +75,19 @@ class Posts extends Component
         $this->validate([
             'title' => 'required',
             'body' => 'required',
+            'publish' => 'required'
         ]);
 
         Post::updateOrCreate(['id' => $this->post_id], [
             'title' => $this->title,
             'body' => $this->body,
+        ]);
+
+        //allows access to the Page model
+        Page::updateOrCreate(['id' => $this->post_id], [
+            'title' => $this->title,
+            'body' => $this->body,
+            'publish' => $this->publish
         ]);
 
         session()->flash('message',
