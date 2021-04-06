@@ -18,15 +18,11 @@
             @if($isOpen)
                 @include('livewire.create')
             @endif
-            @if($posts[0]->published == 1)
-                <h2 class="text-4xl text-blue-200 mb-3">{{ $posts[0]->title }} (Published)</h2>
-                <hr /><br />
-                <br />
+            @if($posts[0]->publish == 1)
+                <h2 class="text-4xl text-blue-200 mb-3">{{ $posts[0]->title }} Published Post</h2><br>
                 <p class="text-1xl">{{ $posts[0]->body }}</p>
             @else
-                <h2 class="text-4xl text-blue-200 mb-3">{{ $posts[0]->title }} (No Published)</h2>
-                <hr /><br />
-                <br />
+                <h2 class="text-4xl text-blue-200 mb-3">{{ $posts[0]->title }} Not Published</h2><br>
                 <p class="text-1xl">{{ $posts[0]->body }}</p>
             @endif
         </div>

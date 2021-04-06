@@ -20,18 +20,21 @@
                 @include('livewire.create')
             @endif
 
-                <div class="float-right">
+            <div class="float-right">
                 <span class="mr-3 d-inline">
+                    <label class="inline-flex items-center ml-8">
+                        <input type="radio" class="form-radio" wire:model="view" value="1">
+                        <span class="ml-2">All Posts</span>
+                    </label>
+
+                    <span class="mr-3 d-inline">
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" wire:model="isOpen" value="0">
+                        <input type="radio" class="form-radio" wire:model="view" value="0">
                         <span class="ml-2">Published Posts</span>
                     </label>
-                    <label class="inline-flex items-center ml-6">
-                        <input type="radio" class="form-radio" wire:model="isOpen" value="1">
-                        <span class="ml-2">Posts</span>
-                    </label>
                 </span>
-                </div>
+                </span>
+            </div>
 
             <table class="table-fixed w-full">
                 <thead>
@@ -45,17 +48,34 @@
                 </thead>
                 <tbody>
                 @foreach($posts as $post)
+                    @if($post->publish == 1 && Auth::user()->id == $post->user_id)
                     <tr>
                         <td class="border px-4 py-2">{{ $post->id }}</td>
                         <td class="border px-4 py-2">{{ $post->Title }}</td>
                         <td class="border px-4 py-2">{{ $post->Body }}</td>
-                        <td class="border px-4 py-2">Publish</td>
+                        <td class="border px-4 py-2">Publish Posts</td>
                         <td class="border px-4 py-2">
                             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><a href="/posts/{{ $post->id }}">View Post</a></button>
                             <button wire:click="edit({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
                             <button wire:click="delete({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                         </td>
                     </tr>
+
+                    @elseif($post->publish == 0 && Auth::user()->id == $post->user_id  )
+                        <tr>
+                            <td class="border px-4 py-2">{{ $post->id }}</td>
+                            <td class="border px-4 py-2">{{ $post->title }}</td>
+                            <td class="border px-4 py-2">{{ $post->body }}</td>
+                            <td class="border px-4 py-2">Not Published</td>
+                            <td class="border px-4 py-2">
+                                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><a href="/posts/{{ $post->id }}">View</a></button>
+                                @if (Auth::user()->id == $post->user_id  )
+                                    <button wire:click="edit({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+                                    <button wire:click="delete({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>

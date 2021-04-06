@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Posts extends Component
 {
     public $posts, $title, $body, $post_id, $publish, $livePost;
-    public $isOpen = 0;
+    public $isOpen = 0, $view = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -23,11 +23,16 @@ class Posts extends Component
         $this->posts = $user->posts;
         return view('livewire.posts');
         */
-        if($this->isOpen == 0){
-            $this->posts = Post::where('user_id', Auth::user()->id)->where('publish', 0)
-                ->orWhere('publish', 1)->get();
-            $this->posts = \App\Models\Post::where('id', '=', $this->livePost)
-                ->get();
+        $id = false;
+        $this->livePost = $id;
+
+
+        $this->posts = Post::where('id','=',$this->livePost)->get();
+        if($this->view == 0) {
+            $this->posts = Post::where('user_id', Auth::user()->id)->where('publish', '=', 1)->get();
+        }
+        else{
+            $this->posts = Post::where('user_id', Auth::user()->id)->where('publish', '=', 0)->orWhere('publish', 1)->get();
         }
         return view('livewire.posts');
     }
@@ -72,6 +77,7 @@ class Posts extends Component
         $this->title = '';
         $this->body = '';
         $this->post_id = '';
+        $this->publish = 1;
     }
 
     /**
@@ -125,6 +131,6 @@ class Posts extends Component
     {
         Post::find($id)->delete();
         session()->flash('message', 'Post Deleted Successfully.');
-        redirect('/posts');
+        redirect('/post');
     }
 }

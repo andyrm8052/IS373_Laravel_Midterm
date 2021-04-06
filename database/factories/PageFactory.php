@@ -23,8 +23,8 @@ class PageFactory extends Factory
     public function definition()
     {
         return [
-            'salary' => $this->faker->randomNumber(),
-            'title' => $this->faker->jobTitle,
+            'title' => $this->faker->sentence,
+            'body' => $this->faker->sentence,
             'publish' => 1,
             'user_id' => User::factory(),
         ];

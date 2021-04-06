@@ -13,6 +13,6 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Page::factory(10)->create();
+
     }
 }

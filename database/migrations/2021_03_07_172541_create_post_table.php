@@ -19,7 +19,6 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('body');
             $table->boolean("publish");
-            //create the relationship between a task and the user that created it
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });

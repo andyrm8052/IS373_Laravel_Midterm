@@ -22,6 +22,8 @@ class Page extends Component
         $this->page = $user->page;
         return view('livewire.page');
         */
+        $id = false;
+        $this->livePage = $id;
         $this->page = Page::where('id', '=', $this->livePage)->get();
         return view('livewire.page');
     }
@@ -68,7 +70,7 @@ class Page extends Component
         $this->title = '';
         $this->body = '';
         $this->publish = '';
-        $this->post_id = '';
+        $this->page_id = '';
     }
 
     /**
