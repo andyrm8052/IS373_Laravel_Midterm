@@ -4,11 +4,11 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Post;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class Posts extends Component
 {
-    public $posts, $title, $body, $publish, $post_id;
+    public $posts, $title, $body, $post_id, $publish, $livePost;
     public $isOpen = 0;
 
     /**
@@ -18,8 +18,17 @@ class Posts extends Component
      */
     public function render()
     {
+        /*
         $user = auth()->user();
         $this->posts = $user->posts;
+        return view('livewire.posts');
+        */
+        if($this->isOpen == 0){
+            $this->posts = Post::where('user_id', Auth::user()->id)->where('publish', 0)
+                ->orWhere('publish', 1)->get();
+            $this->posts = \App\Models\Post::where('id', '=', $this->livePost)
+                ->get();
+        }
         return view('livewire.posts');
     }
 
@@ -81,13 +90,8 @@ class Posts extends Component
         Post::updateOrCreate(['id' => $this->post_id], [
             'title' => $this->title,
             'body' => $this->body,
-        ]);
-
-        //allows access to the Page model
-        Page::updateOrCreate(['id' => $this->post_id], [
-            'title' => $this->title,
-            'body' => $this->body,
-            'publish' => $this->publish
+            'publish' => $this->publish,
+            'user_id' => Auth::user()->id
         ]);
 
         session()->flash('message',
@@ -107,6 +111,7 @@ class Posts extends Component
         $this->post_id = $id;
         $this->title = $post->title;
         $this->body = $post->body;
+        $this->publish = $post->publish;
 
         $this->openModal();
     }
@@ -120,5 +125,6 @@ class Posts extends Component
     {
         Post::find($id)->delete();
         session()->flash('message', 'Post Deleted Successfully.');
+        redirect('/posts');
     }
 }

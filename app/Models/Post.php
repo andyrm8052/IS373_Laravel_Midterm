@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title', 'body'
+        'title', 'body', 'publish', 'user_id'
     ];
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -19,7 +19,9 @@ class Post extends Model
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->user_id = Auth::id();
+            if(Auth::id() != null) {
+                $model->user_id = Auth::id();
+            }
         });
         static::updating(function ($model) {
             $model->user_id = Auth::id();

@@ -19,12 +19,27 @@
             @if($isOpen)
                 @include('livewire.create')
             @endif
+
+                <div class="float-right">
+                <span class="mr-3 d-inline">
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio" wire:model="isOpen" value="0">
+                        <span class="ml-2">Published Posts</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" class="form-radio" wire:model="isOpen" value="1">
+                        <span class="ml-2">Posts</span>
+                    </label>
+                </span>
+                </div>
+
             <table class="table-fixed w-full">
                 <thead>
                 <tr class="bg-gray-100">
                     <th class="px-4 py-2 w-20">No.</th>
                     <th class="px-4 py-2">Title</th>
                     <th class="px-4 py-2">Body</th>
+                    <th class="px-4 py-2">Publish</th>
                     <th class="px-4 py-2">Action</th>
                 </tr>
                 </thead>
@@ -34,7 +49,9 @@
                         <td class="border px-4 py-2">{{ $post->id }}</td>
                         <td class="border px-4 py-2">{{ $post->Title }}</td>
                         <td class="border px-4 py-2">{{ $post->Body }}</td>
+                        <td class="border px-4 py-2">Publish</td>
                         <td class="border px-4 py-2">
+                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><a href="/posts/{{ $post->id }}">View Post</a></button>
                             <button wire:click="edit({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
                             <button wire:click="delete({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                         </td>

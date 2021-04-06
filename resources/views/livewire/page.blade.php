@@ -6,7 +6,6 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
-
             @if (session()->has('message'))
                 <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
                     <div class="flex">
@@ -20,6 +19,20 @@
             @if($isOpen)
                 @include('livewire.create')
             @endif
+
+                <div class="float-right">
+                <span class="mr-3 d-inline">
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio" wire:model="isOpen" value="0">
+                        <span class="ml-2">Published Pages</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" class="form-radio" wire:model="isOpen" value="1">
+                        <span class="ml-2">Pages</span>
+                    </label>
+                </span>
+                </div>
+
             <table class="table-fixed w-full">
                 <thead>
                 <tr class="bg-gray-100">
@@ -30,15 +43,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($posts as $post)
+                @foreach($pages as $page)
                     <tr>
-                        <td class="border px-4 py-2">{{ $post->id }}</td>
-                        <td class="border px-4 py-2">{{ $post->Title }}</td>
-                        <td class="border px-4 py-2">{{ $post->Body }}</td>
-                        <td class="border px-4 py-2">{{ $post->Publish }}</td>
+                        <td class="border px-4 py-2">{{ $page->id }}</td>
+                        <td class="border px-4 py-2">{{ $page->Title }}</td>
+                        <td class="border px-4 py-2">{{ $age->Body }}</td>
+                        <td class="border px-4 py-2">Published</td>
                         <td class="border px-4 py-2">
-                            <button wire:click="edit({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
-                            <button wire:click="delete({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><a href="/pages/{{ $page->id }}">View Page</a></button>
+                        @if (Auth::user()->id == $page->user_id  )
+                            <button wire:click="edit({{ $pages->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+                            <button wire:click="delete({{ $pages->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                        @endif
                         </td>
                     </tr>
                 @endforeach

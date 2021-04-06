@@ -27,9 +27,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('post', Posts::class)->name('post');
+Route::get('/posts/',[\App\Http\Controllers\PostsController::class, 'index'])->name('public_posts_index');
+Route::get('/posts/{id}',[\App\Http\Controllers\PostsController::class, 'show'])->name('public_posts_show'); //new added
 
 Route::get('contact', ContactForm::class)->name('contact');
-//Route::get('/', function () {
-//    return view('contact');
-//});
+
 Route::get('page', Page::class)->name('page');
+Route::get('/ages/',[\App\Http\Controllers\PagesController::class, 'index'])->name('public_pages_index');
+Route::get('/pages/{id}',[\App\Http\Controllers\PagesController::class, 'show'])->name('public_pages_show'); //new added
+
